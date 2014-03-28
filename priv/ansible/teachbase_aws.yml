@@ -1,0 +1,17 @@
+---
+- name: EC2 production
+  hosts: aws-production
+  sudo: yes 
+  remote_user: ubuntu
+  vars_files:
+    - group_vars/production.yml
+  gather_facts: True
+  roles:
+    - common_setup
+    - deploy_user
+    - ruby
+    - nginx
+    - redis
+    - nodejs
+    - postgres
+    - tb_prepare

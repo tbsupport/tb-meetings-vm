@@ -1,0 +1,41 @@
+## webapp
+app_dir: /webapps
+app_name: meetings-web
+app_path: "{{app_dir}}/{{app_name}}"
+app_server_name: _
+app_db_host: localhost
+app_db_user_pass: md53548dd4d99be6cf8a98894d919f84c29
+app_db_user: teachbase
+
+
+db_ram_shared: 512
+db_ram_cache: 256
+
+## stolen from https://github.com/jgrowl/ansible-playbook-ruby-from-src
+ruby_version: 2.1
+ruby_name: ruby-2.1.0
+ruby_url: "http://cache.ruby-lang.org/pub/ruby/{{ruby_version}}/{{ruby_name}}.tar.gz"
+ruby_tmp_path: "/usr/local/src/{{ruby_name}}"
+
+# nodejs params
+
+node_version: "0.10.26"
+node_prefix: "node-v{{node_version}}"
+node_tarball: "{{node_prefix}}.tar.gz"
+node_path: "/usr/local"
+
+# redis
+
+redis_version: "2.6.16"
+
+# erlang
+
+erlang_version: "R16B03-1"
+erlang_check_version: "R16B03"
+erlang_url: "http://www.erlang.org/download/otp_src_{{erlang_version}}.tar.gz" 
+erlang_name: "otp_src_{{erlang_version}}"
+erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
+
+# deploy params
+deploy_user: vagrant
+deploy_user_key: "~/.ssh/devtb_rsa.pub"

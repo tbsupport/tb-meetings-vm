@@ -1,0 +1,17 @@
+---
+- name: Development setup
+  hosts: development
+  user: vagrant
+  sudo: true
+  vars_files:
+    - group_vars/development.yml
+    - aws.yml
+  roles:
+    - common_setup
+    - ruby
+    - postgres
+    - redis
+    - nodejs
+    - erlang
+    - erlyvideo
+    - aws_cli

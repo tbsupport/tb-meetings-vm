@@ -1,0 +1,2 @@
+[aws-production]
+ec2-79-125-110-35.eu-west-1.compute.amazonaws.com ansible_ssh_private_key_file=/Users/palkan/.ssh/dev_tb.pem
