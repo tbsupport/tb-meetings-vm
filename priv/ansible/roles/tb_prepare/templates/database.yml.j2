@@ -15,8 +15,8 @@ test:
 production:
   adapter: postgresql
   host: {{ app_db_host }}
-  database: {{ app_name }}
+  database: {{ pg_db }}
   username: {{ app_db_user }}
-  password: {{ app_db_user_pass }} 
+  password: {{ app_db_user_pass_plain }} 
   encoding: unicode
   pool: 10

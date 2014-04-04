@@ -8,12 +8,16 @@
   command: mkdir -p {{app_path}}/shared/config
 
 - name: Copy database.yml
-  template: src=database.yml.j2 dest={{app_path}}/shared/config/database.yml
+  template: src={{item}}.j2 dest={{app_path}}/shared/config/{{item}}
+  with_items:
+    - database.yml
+    - aws.yml
+    - fyler.yml
 
 - name: Setup ownership for project dir
-  command: chown -R {{deploy_user}} {{app_dir}}/{{app_name}}
+  command: chown -R {{deploy_user}} {{app_dir}}
 
 - name: Setup rights for project dir
-  command: chmod -R g+w {{app_dir}}/{{app_name}}
+  command: chmod -R g+w {{app_dir}}
 
-- include: imagemagick.yml tags=setup
+- include: curb_deps.yml tags=curb

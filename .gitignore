@@ -25,5 +25,12 @@ out
 
 .vagrant
 
+# apps
 src/
+
+# production data
+
 priv/ansible/aws.yml
+priv/ansible/fyler.yml
+
+priv/ansible/group_vars/production.yml

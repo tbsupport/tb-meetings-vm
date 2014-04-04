@@ -15,4 +15,3 @@
 
 - name: Install PostgreSQL
   apt: pkg=postgresql-9.3 state=latest update_cache=true
-  

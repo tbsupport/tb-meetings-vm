@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     ansible.verbose = 'v'
   end
 
-  config.vm.network "forwarded_port", guest: 3000, host: 8084
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
   config.vm.network "forwarded_port", guest: 8082, host: 8082
 
   config.vm.network "private_network", ip: "192.168.50.113"

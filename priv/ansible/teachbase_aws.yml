@@ -5,13 +5,18 @@
   remote_user: ubuntu
   vars_files:
     - group_vars/production.yml
+    - aws.yml
+    - fyler.yml
   gather_facts: True
   roles:
     - common_setup
     - deploy_user
     - ruby
-    - nginx
+    - postgres
     - redis
     - nodejs
-    - postgres
+    - erlang
+    - erlyvideo
+    - aws_cli
+    - nginx
     - tb_prepare
