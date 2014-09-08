@@ -25,6 +25,9 @@ out
 
 .vagrant
 
+*.sublime-project
+*.sublime-workspace
+
 # apps
 src/
 

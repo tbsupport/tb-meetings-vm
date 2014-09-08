@@ -9,14 +9,14 @@
     - fyler.yml
   gather_facts: True
   roles:
-    - common_setup
-    - deploy_user
-    - ruby
-    - postgres
-    - redis
-    - nodejs
-    - erlang
-    - erlyvideo
-    - aws_cli
-    - nginx
-    - tb_prepare
+    - { role: common_setup, tags: ['initial'] }
+    - { role: deploy_user, tags: ['user'] }
+    - { role: ruby, tags: ['ruby'] }
+    - { role: postgres, tags: ['postgres'] }
+    - { role: redis, tags: ['redis'] }
+    - { role: nodejs, tags: ['nodejs'] }
+    - { role: erlang, tags: ['erlang'] }
+    - { role: erlyvideo, tags: ['erlyvideo'] }
+    - { role: aws_cli, tags: ['aws_cli'] }
+    - { role: nginx, tags: ['nginx'] }
+    - { role: tb_prepare, tags: ['app_setup'] }

@@ -7,11 +7,11 @@
     - group_vars/development.yml
     - aws.yml
   roles:
-    - common_setup
-    - ruby
-    - postgres
-    - redis
-    - nodejs
-    - erlang
-    - erlyvideo
-    - aws_cli
+    - { role: common_setup, tags: ['initial'] }
+    - { role: ruby, tags: ['ruby'] }
+    - { role: postgres, tags: ['postgres'] }
+    - { role: redis, tags: ['redis'] }
+    - { role: nodejs, tags: ['nodejs'] }
+    - { role: erlang, tags: ['erlang'] }
+    - { role: erlyvideo, tags: ['erlyvideo'] }
+    - { role: aws_cli, tags: ['aws_cli'] }
