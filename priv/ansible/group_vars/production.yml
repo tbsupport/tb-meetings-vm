@@ -1,7 +1,7 @@
 ## webapp
 app_dir: /webapps
 app_name: meetings-web
-app_path: "${app_dir}/${app_name}"
+app_path: "{{ app_dir }}/{{ app_name }}"
 app_server_name: _
 app_db_host: localhost
 app_db_user_pass: md53548dd4d99be6cf8a98894d919f84c29
@@ -41,4 +41,8 @@ erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
 # deploy params
 deploy_user: deplo
 deploy_user_key: "/Users/palkan/.ssh/devtb_rsa.pub"
+
+# nginx params
+nginx_max_size: 256m
+nginx_read_timeout: 600
 
