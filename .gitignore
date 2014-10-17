@@ -37,3 +37,4 @@ priv/ansible/aws.yml
 priv/ansible/fyler.yml
 
 priv/ansible/group_vars/production.yml
+priv/ansible/group_vars/selectel.yml

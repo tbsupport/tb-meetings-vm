@@ -1,20 +1,11 @@
-- name: Make webapps dir
-  file: path={{app_dir}} state=directory owner={{ deploy_user }} mode="0755"
-
 - name: Make project dir
-  file: path={{app_dir}}/{{app_name}} state=directory
-
-- name: Make project shared dir
-  file: path={{app_path}}/shared state=directory
-
-- name: Make project shared tmp dir
-  file: path={{app_path}}/shared/tmp state=directory
+  command: mkdir -p {{app_dir}}/{{app_name}}
 
 - name: Make sockets dir
-  file: path={{app_path}}/shared/tmp/sockets state=directory
+  command: mkdir -p {{app_path}}/shared/tmp/sockets
 
 - name: Make config dir
-  file: path={{app_path}}/shared/config state=directory
+  command: mkdir -p {{app_path}}/shared/config
 
 - name: Copy database.yml
   template: src={{item}}.j2 dest={{app_dir}}/{{app_name}}/shared/config/{{item}}
@@ -22,5 +13,12 @@
     - database.yml
     - aws.yml
     - fyler.yml
+    - erly.yml
+
+- name: Setup ownership for project dir
+  command: chown -R {{deploy_user}} {{app_dir}}/{{app_name}}
+
+- name: Setup rights for project dir
+  command: chmod -R g+w {{app_dir}}/{{app_name}}
 
 - include: curb_deps.yml tags=curb

@@ -1,0 +1,22 @@
+---
+- name: Selectel production
+  hosts: selectel-production
+  sudo: yes 
+  remote_user: root
+  vars_files:
+    - group_vars/selectel.yml
+    - aws.yml
+    - fyler.yml
+  gather_facts: True
+  roles:
+    - { role: common_setup, tags: ['initial'] }
+    - { role: deploy_user, tags: ['user'] }
+    - { role: ruby, tags: ['ruby'] }
+    - { role: postgres, tags: ['postgres'] }
+    - { role: redis, tags: ['redis'] }
+    - { role: nodejs, tags: ['nodejs'] }
+    - { role: erlang, tags: ['erlang'] }
+    - { role: erlyvideo, tags: ['erlyvideo'] }
+    - { role: aws_cli, tags: ['aws_cli'] }
+    - { role: nginx, tags: ['nginx'] }
+    - { role: tb_prepare, tags: ['app_setup'] }
