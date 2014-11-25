@@ -4,8 +4,7 @@ app_name: meetings-web
 app_path: "{{app_dir}}/{{app_name}}"
 app_server_name: _
 app_db_host: localhost
-app_db_user_pass: md53548dd4d99be6cf8a98894d919f84c29
-app_db_user_pass_plain: teachbase
+app_db_user_pass: teachbase
 app_db_user: teachbase
 
 pg_db: teachbase_dev
@@ -41,3 +40,19 @@ erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
 # deploy params
 deploy_user: vagrant
 deploy_user_key: "~/.ssh/devtb_rsa.pub"
+
+# nginx params
+nginx_max_size: 256m
+nginx_read_timeout: 600
+
+# erly
+erly:
+  host: 'http://127.0.0.1:8082'
+  login: 'test'
+  pass: 'test'
+
+# aws
+aws_key: ''
+aws_secret: '' 
+aws_region: eu-west-1
+aws_bucket: ''
