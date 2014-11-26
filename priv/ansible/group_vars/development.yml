@@ -56,3 +56,9 @@ aws_key: ''
 aws_secret: '' 
 aws_region: eu-west-1
 aws_bucket: ''
+
+# fyler
+fyler_host: 'http://localhost:8008'
+fyler_login: 'test'
+fyler_pass: 'test'
+fyler_callback_host: 'http://{{ inventory_hostname }}'
