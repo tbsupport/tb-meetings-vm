@@ -1,0 +1,3 @@
+- name: Varnish | Copy VCL
+  template: src=default.vcl.j2 dest={{ varnish_vcl_path }}
+  notify: reload varnish

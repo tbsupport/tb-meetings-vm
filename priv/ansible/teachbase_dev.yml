@@ -15,3 +15,4 @@
     - { role: erlang, tags: ['erlang'] }
     - { role: erlyvideo, tags: ['erlyvideo'] }
     - { role: aws_cli, tags: ['aws_cli'] }
+    - { role: varnish, tags: ['varnish'] }

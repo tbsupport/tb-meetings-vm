@@ -11,13 +11,24 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "priv/ansible/teachbase_dev.yml"
     ansible.inventory_path = "priv/ansible/dev_hosts"
+    ansible.tags = ENV["TAGS"]
+    ansible.skip_tags = ENV["SKIP_TAGS"]
     ansible.verbose = 'v'
   end
 
   config.vm.network :forwarded_port, host: 2202, guest: 22 
+
+  # rails app
   config.vm.network "forwarded_port", guest: 3000, host: 3000
+  
+  # erly app http
   config.vm.network "forwarded_port", guest: 8082, host: 8082
+  
+  # erly app rtmp
   config.vm.network "forwarded_port", guest: 443, host: 8433
+  
+  # varnish
+  config.vm.network "forwarded_port", guest: 80, host: 8081
 
   config.vm.network "private_network", ip: "192.168.50.113"
 

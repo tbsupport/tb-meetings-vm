@@ -1,0 +1,7 @@
+- name: reload varnish
+  sudo: true
+  service: name=varnish state=reloaded
+
+- name: restart varnish
+  sudo: true
+  service: name=varnish state=restarted

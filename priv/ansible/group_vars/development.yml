@@ -62,3 +62,17 @@ fyler_host: 'http://localhost:8008'
 fyler_login: 'test'
 fyler_pass: 'test'
 fyler_callback_host: 'http://{{ inventory_hostname }}'
+
+
+# varnish
+varnish_malloc_size: 128M
+
+varnish_probe:
+  url: '/probe'
+  timeout: '500ms'
+  interval: '10s'
+  window: 6
+  threshold: 5
+
+varnish_backends:
+  - {name: 'local', host: 'localhost', port: '8082'}
