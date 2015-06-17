@@ -12,6 +12,7 @@
     - { role: postgres, tags: ['postgres'] }
     - { role: redis, tags: ['redis'] }
     - { role: nodejs, tags: ['nodejs'] }
+    - { role: 'palkan.ffmpeg', tags: ['ffmpeg']}
     - { role: erlang, tags: ['erlang'] }
     - { role: erlyvideo, tags: ['erlyvideo'] }
     - { role: aws_cli, tags: ['aws_cli'] }

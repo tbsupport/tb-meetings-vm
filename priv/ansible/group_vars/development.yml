@@ -31,8 +31,8 @@ redis_version: "2.6.16"
 
 # erlang
 
-erlang_version: "R16B03-1"
-erlang_check_version: "R16B03"
+erlang_version: "17.5"
+erlang_check_version: "17.5"
 erlang_url: "http://www.erlang.org/download/otp_src_{{erlang_version}}.tar.gz" 
 erlang_name: "otp_src_{{erlang_version}}"
 erlang_tmp_path: "/usr/local/src/{{erlang_name}}"
@@ -75,4 +75,4 @@ varnish_probe:
   threshold: 5
 
 varnish_backends:
-  - {name: 'local', host: 'localhost', port: '8082'}
+  - {name: 'local', host: 'localhost', port: '3000'}

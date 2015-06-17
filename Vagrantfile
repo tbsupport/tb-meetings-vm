@@ -14,6 +14,7 @@ Vagrant.configure("2") do |config|
     ansible.tags = ENV["TAGS"]
     ansible.skip_tags = ENV["SKIP_TAGS"]
     ansible.verbose = 'v'
+    ansible.limit = 'all'
   end
 
   config.vm.network :forwarded_port, host: 2202, guest: 22 
