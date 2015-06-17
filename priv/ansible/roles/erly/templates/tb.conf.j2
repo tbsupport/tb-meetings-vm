@@ -1,0 +1,57 @@
+    {
+        layout,
+        [
+            {
+                0,
+                [
+                    {"", 0, {layout_element,0,100,100,0,"",<<"">>,0}},
+                    {"0", 1, {layout_element,1,70,100,0,"0",<<"docs">>,1}},
+                    {"1", 0, {layout_element,0,30,100,1,"1",<<"">>,0}},
+                    {"10", 4, {layout_element,4,100,35,1,"10",<<"video">>,1}},
+                    {"11", 0, {layout_element,0,100,65,1,"11",<<"">>,0}},
+                    {"110", 2, {layout_element,2,100,50,1,"110",<<"users">>,1}},
+                    {"111", 3, {layout_element,3,100,50,1,"111",<<"chat">>,1}}
+                ]
+            },
+            {
+                1,
+                [
+                    {"", 0, {layout_element,0,100,100,1,"",<<"">>,0}},
+                    {"0", 4, {layout_element,4,100,30,1,"0",<<"video">>,1}},
+                    {"1", 0, {layout_element,0,100,70,0,"1",<<"">>,0}},
+                    {"10", 1, {layout_element,1,70,100,0,"10",<<"docs">>,1}},
+                    {"11", 3, {layout_element,3,30,100,0,"11",<<"chat">>,1}}
+                ]
+            },
+            {
+                2,
+                [
+                    {"", 0, {layout_element,0,100,100,0,"",<<"">>,0}},
+                    {"0", 4, {layout_element,4,70,100,0,"0",<<"video">>,1}},
+                    {"1", 0, {layout_element,0,30,100,1,"1",<<"">>,0}},
+                    {"10", 2, {layout_element,2,100,50,1,"10",<<"users">>,1}},
+                    {"11", 3, {layout_element,3,100,50,1,"11",<<"chat">>,1}}
+                ]
+            }
+        ]
+    }.
+    {
+        http_file_upload_path, "{{teachbase_file_upload_path}}"
+    }.
+    {
+        http_file_poll_path, "{{teachbase_file_poll_path}}"
+    }.
+    {
+        recording_dir, "{{teachbase_recording_dir}}"
+    }.
+    {
+        api_key, <<"{{teachbase_api_key}}">>
+    }.
+    {aws_dir,"recordings"}.
+    {aws_bucket, "devtbupload"}.
+    {
+        user_waiting_time, 30000
+    }.
+    {
+        debug_mode, false
+    }.

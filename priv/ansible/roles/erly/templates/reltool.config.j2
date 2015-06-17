@@ -1,0 +1,50 @@
+{sys, [
+       {lib_dirs, ["apps","deps"]},
+       {rel, "erlyvideo", "1",
+        [
+         kernel,
+         stdlib,
+         sasl,
+         crypto,
+         ulitos,
+         erl_api_client,
+         lager_honeybadger_backend,
+         lager_logstash_backend,
+         erlyvideo,
+         dpo,
+         teachbase
+        ]},
+       {rel, "start_clean", "",
+        [
+         kernel,
+         stdlib
+        ]},
+       {boot_rel, "erlyvideo"},
+       {profile, embedded},
+       {mod_cond,all},
+       {excl_archive_filters, [".*"]}, % do no archive built libs
+       {excl_sys_filters, ["^bin/.*",
+                           "^erts.*/bin/(dialyzer|typer)"]},
+       {app, mnesia, [{incl_cond, exclude}]},
+       {app, wx, [{incl_cond, exclude}]},
+       {app, edoc, [{incl_cond, exclude}]},
+       {app, os_mon, [{incl_cond, include}]},
+       {app, gs, [{incl_cond, exclude}]},
+       {app, erl_interface, [{incl_cond, include}]},
+       {app, sasl, [{incl_cond, include}]}
+      ]}.
+
+{target_dir, "{{erly_release}}"}.
+
+{overlay, [
+           {copy, "files/erl", "\{\{erts_vsn\}\}/bin/erl"},
+           {copy, "files/nodetool", "\{\{erts_vsn\}\}/bin/nodetool"},
+           {copy, "files/erlyvideo", "bin/erlyvideo"},
+           {copy, "files/app.config", "etc/app.config"},
+           {copy, "files/vm.args", "etc/vm.args"},
+           {copy, "priv/erlyvideo.conf", "etc/erlyvideo.conf"},
+           {copy, "contrib/reverse_mpegts", "bin/reverse_mpegts"},
+           {copy, "contrib/rtmp_bench", "bin/rtmp_bench"},
+           {copy, "contrib/rtmp_proxy", "bin/rtmp_proxy"},
+           {copy, "contrib/rtsp_test_client", "bin/rtsp_test_client"}
+           ]}.
