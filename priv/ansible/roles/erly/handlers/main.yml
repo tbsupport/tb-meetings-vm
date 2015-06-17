@@ -1,0 +1,3 @@
+- name: restart erly
+  sudo_user: "{{ deploy_user }}"
+  service: name=erly state=restarted

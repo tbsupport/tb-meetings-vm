@@ -1,0 +1,42 @@
+- name: Erly | clone 
+  sudo_user: "{{ deploy_user }}"
+  git: repo={{ erly_repo }} version={{ erly_version }} accept_hostkey=true dest={{ erly_path }}
+  register: repo
+
+- name: Erly | Create reltool.config
+  sudo_user: "{{ deploy_user }}"
+  template: src=reltool.config.j2 dest={{erly_path}}/reltool.config
+  register: reltool
+
+- name: Erly | Create erly config
+  sudo_user: "{{ deploy_user }}"
+  template: src=erlyvideo.conf.j2 dest={{erly_path}}/priv/erlyvideo.conf
+  register: erly_config
+
+- name: Erly | Create teachbase config
+  sudo_user: "{{ deploy_user }}"
+  template: src=tb.conf.j2 dest={{erly_path}}/apps/teachbase/priv/tb.conf
+  register: tb_config
+
+- name: Erly | Create app config
+  sudo_user: "{{ deploy_user }}"
+  template: src=app.config.j2 dest={{erly_path}}/files/app.config
+  register: appconfig
+
+- name: Erly | release exists?
+  stat: path={{erly_bin_path}}/{{erly_bin_name}}
+  register: release_bin
+
+- name: Erly | update deps
+  sudo_user: "{{ deploy_user }}"
+  command: make update_deps chdir={{ erly_path }}
+  when: repo.changed or reltool.changed or erly_config.changed or tb_config.changed or appconfig.changed (not release_bin.stat.exists)
+  register: updated
+
+- name: Erly | release
+  sudo_user: "{{ deploy_user }}"
+  environment: ffmpeg_env
+  command: make release chdir={{ erly_path }}
+  when: updated.changed or (not release_bin.stat.exists)
+  notify:
+    - restart erly
