@@ -1,2 +1,2 @@
 - name: Erly | Redirect ports
-  shell: iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port {{erly_rtmp_port}}
+  shell: iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port {{ erly_rtmp_port }}

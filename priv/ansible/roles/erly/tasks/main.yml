@@ -1,4 +1,4 @@
-- include: os_tune.yml tags=erl_os_tune
-- include: ip_tables.yml
-- include: erly.yml
-- include: erly_service.yml
+- include: os_tune.yml tags=erly_os_tune
+- include: ip_tables.yml tags=erly_ip
+- include: erly_service.yml tags=erly_service
+- include: erly.yml tags=erly_prepare
