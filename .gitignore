@@ -32,9 +32,6 @@ out
 src/
 
 # production data
-
-priv/ansible/aws.yml
-priv/ansible/fyler.yml
-
-priv/ansible/group_vars/production.yml
-priv/ansible/group_vars/selectel.yml
+priv/ansible/group_vars/*production
+priv/ansible/group_vars/*staging
+priv/ansible/host_vars/

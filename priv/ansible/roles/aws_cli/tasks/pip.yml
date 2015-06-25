@@ -1,2 +1,0 @@
-- name: install pip
-  action: apt pkg=python-pip state=installed
