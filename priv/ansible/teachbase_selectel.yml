@@ -14,7 +14,7 @@
     - { role: redis, tags: ['redis'] }
     - { role: nodejs, tags: ['nodejs'] }
     - { role: erlang, tags: ['erlang'] }
-    - { role: erlyvideo, tags: ['erlyvideo'] }
+    - { role: erly, tags: ['erly'] }
     - { role: aws_cli, tags: ['aws_cli'] }
     - { role: nginx, tags: ['nginx'] }
     - { role: tb_prepare, tags: ['app_setup'] }

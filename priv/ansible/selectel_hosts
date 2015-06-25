@@ -1,2 +1,2 @@
 [selectel-production]
-er201.teachbase.ru ansible_ssh_private_key_file=/Users/palkan/.ssh/dem_sel
+er202.teachbase.ru ansible_ssh_private_key_file=/Users/palkan/.ssh/dem_sel
