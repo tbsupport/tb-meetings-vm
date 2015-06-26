@@ -5,26 +5,26 @@
 
 - name: Erly | Create reltool.config
   sudo_user: "{{ deploy_user }}"
-  template: src=reltool.config.j2 dest={{erly_path}}/reltool.config
+  template: src=reltool.config.j2 dest={{ erly_path }}/reltool.config
   register: reltool
 
 - name: Erly | Create erly config
   sudo_user: "{{ deploy_user }}"
-  template: src=erlyvideo.conf.j2 dest={{erly_path}}/priv/erlyvideo.conf
+  template: src=erlyvideo.conf.j2 dest={{ erly_path }}/priv/erlyvideo.conf
   register: erly_config
 
 - name: Erly | Create teachbase config
   sudo_user: "{{ deploy_user }}"
-  template: src=tb.conf.j2 dest={{erly_path}}/apps/teachbase/priv/tb.conf
+  template: src=tb.conf.j2 dest={{ erly_path }}/apps/teachbase/priv/tb.conf
   register: tb_config
 
 - name: Erly | Create app config
   sudo_user: "{{ deploy_user }}"
-  template: src=app.config.j2 dest={{erly_path}}/files/app.config
+  template: src=app.config.j2 dest={{ erly_path }}/files/app.config
   register: appconfig
 
 - name: Erly | release exists?
-  stat: path={{erly_bin_path}}/{{erly_bin_name}}
+  stat: path={{ erly_bin_path }}/{{ erly_bin_name }}
   register: release_bin
 
 - name: Erly | update deps
@@ -39,4 +39,4 @@
   command: make release chdir={{ erly_path }}
   when: updated.changed or (not release_bin.stat.exists)
   notify:
-    - restart erly
+    - Restart Erly

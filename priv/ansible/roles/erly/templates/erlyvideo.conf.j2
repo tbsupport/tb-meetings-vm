@@ -1,20 +1,12 @@
 {rtmp_port, {{erly_rtmp_port}}}.
 {http_port, {{erly_http_port}}}.
 {rtmp_default_wait, false}.
-{script_paths, ["scripts"]}.
 {vhosts, [
   {default, [
     {file_access, file},
   	{detectors, [rewrite, http, file, livestream]},
     {hostname, ["localhost"]},
-    {rtmp_handlers, [auth_users_limit, remove_useless_prefix, tb_rtmp_share_handler, tb_rtmp_handler, dpo_rtmp_handler, apps_streaming, apps_recording, notfound_rtmp_handler]},
-    {event_handlers, [
-%      {stream_stopped, {ems_hook_http, "http://localhost:8082/stopped"}},
-%      {user_connected, {ems_hook_http, "http://localhost:3000/"}}
-    ]},
-    {secret_key, "123"},
+    {rtmp_handlers, [auth_users_limit, tb_rtmp_share_handler, tb_rtmp_handler, apps_streaming, apps_recording, notfound_rtmp_handler]},
     {file_dir, "/"},
-    {rewrite, [
-     ]}
   ]}
 ]}.

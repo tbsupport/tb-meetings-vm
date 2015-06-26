@@ -11,12 +11,12 @@ backend  {{ backend['name'] }} {
   .host = "{{ backend['host'] }}";
   .port = "{{ backend['port'] }}";
   .probe = {
-        .url = "{{ varnish_probe.url }}";
-        .timeout = {{ varnish_probe.timeout }};
-        .interval = {{ varnish_probe.interval }};
-        .window = {{ varnish_probe.window }};
-        .threshold = {{ varnish_probe.threshold }};
-    }
+    .url = "{{ varnish_probe.url }}";
+    .timeout = {{ varnish_probe.timeout }};
+    .interval = {{ varnish_probe.interval }};
+    .window = {{ varnish_probe.window }};
+    .threshold = {{ varnish_probe.threshold }};
+  }
 }
 {% endfor %}
 
@@ -36,29 +36,29 @@ sub vcl_recv {
   set req.backend_hint = vdir.backend();
 
   if (req.restarts == 0){
-    if (req.http.x-forwarded-for){
-      set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
-    }else{
-      set req.http.X-Forwarded-For = client.ip;
-    }
+  if (req.http.x-forwarded-for){
+    set req.http.X-Forwarded-For = req.http.X-Forwarded-For + ", " + client.ip;
+  }else{
+    set req.http.X-Forwarded-For = client.ip;
+  }
   }
 
   ## always cache fragments:
   if(req.method == "GET" && req.url ~ "(stream_[0-9]*)"){
-    return(hash);
+  return(hash);
   }
    
   if(req.method != "GET" && req.method != "HEAD"){
-    return (pass);
+  return (pass);
   }
 
   if(req.http.Accept-Encoding){
-    unset req.http.Accept-Encoding;
-    return (hash);
+  unset req.http.Accept-Encoding;
+  return (hash);
   }
-    
+  
   set req.http.grace = "80s";
-    
+  
   return (hash);
 }
 
@@ -76,22 +76,22 @@ sub vcl_hash {
 # Called after vcl_recv to create a hash value for the request. This is used as a key to look up the object in Varnish.
   hash_data(req.url);
   if(req.http.host){
-    hash_data(req.http.host);
+  hash_data(req.http.host);
   }else{
-    hash_data(server.ip);
+  hash_data(server.ip);
   }
 
 # hash cookies for requests that have them
 #  if (req.http.Cookie) {
-#    hash_data(req.http.Cookie);
+#  hash_data(req.http.Cookie);
 #  }
 }
 
 sub vcl_hit {
   # Called when a cache lookup is successful.
   if (obj.ttl >= 0s) {
-    # A pure unadultered hit, deliver it
-    return (deliver);
+  # A pure unadultered hit, deliver it
+  return (deliver);
   }
   
   return (pass);
@@ -100,42 +100,42 @@ sub vcl_hit {
 
 sub vcl_backend_response {
   if (beresp.status == 503) {
-    if(bereq.retries < {{ varnish_backends|length }}) {
-      return (retry);
-    } else {
-      # all servers failed, generate a cache-able 404 error.
-      # NOTE: we have chosen not to use the varnish
-      # "error <number> <response>" mechanism to generate our
-      # error since those errors are not cached by varnish.
-      # instead, we will transform our 503 error into a 404 error.
-      set beresp.status = 404;
-      set beresp.reason = "Not found.";
+  if(bereq.retries < {{ varnish_backends|length }}) {
+    return (retry);
+  } else {
+    # all servers failed, generate a cache-able 404 error.
+    # NOTE: we have chosen not to use the varnish
+    # "error <number> <response>" mechanism to generate our
+    # error since those errors are not cached by varnish.
+    # instead, we will transform our 503 error into a 404 error.
+    set beresp.status = 404;
+    set beresp.reason = "Not found.";
 
-      # CUSTOMIZE ttl to be 1/2 a fragment interval.
-      set beresp.ttl = 2s;
+    # CUSTOMIZE ttl to be 1/2 a fragment interval.
+    set beresp.ttl = 2s;
 
-      # CUSTOMIZE Cache-Control to be 1/2 a fragment interval.
-      set beresp.http.Cache-Control = "maxage=2";
-      unset beresp.http.expires;
-    }
+    # CUSTOMIZE Cache-Control to be 1/2 a fragment interval.
+    set beresp.http.Cache-Control = "maxage=2";
+    unset beresp.http.expires;
+  }
   }
 
   if (std.healthy(bereq.backend)) {
-    # Blanket cache everything for 1 fragment interval. 
-    # CUSTOMIZE the value "4" for your deployment as the configured fragment duration.
-    if (beresp.http.X-Static == "YES"){
-      set beresp.ttl = 600s;
-    }else{
-      set beresp.ttl = 4s;
-    }
+  # Blanket cache everything for 1 fragment interval. 
+  # CUSTOMIZE the value "4" for your deployment as the configured fragment duration.
+  if (beresp.http.X-Static == "YES"){
+    set beresp.ttl = 600s;
   }else{
-    # The backend is sick set ttl to 10 mins to serve stale content
-    set beresp.ttl = 600s; 
+    set beresp.ttl = 4s;
+  }
+  }else{
+  # The backend is sick set ttl to 10 mins to serve stale content
+  set beresp.ttl = 600s; 
   }
   
   ## Do not cache 50x errors
   if (beresp.status >= 500) { 
-    set beresp.ttl = 0s; 
+  set beresp.ttl = 0s; 
   }
  
   set beresp.http.X-Cacheable = "YES";
@@ -159,9 +159,9 @@ sub vcl_miss {
 sub vcl_deliver {
   # Called before a cached object is delivered to the client.
   if (obj.hits > 0) { # Add debug header to see if it's a HIT/MISS and the number of hits, disable when not needed
-    set resp.http.X-Cache = "HIT";
+  set resp.http.X-Cache = "HIT";
   } else {
-    set resp.http.X-Cache = "MISS";
+  set resp.http.X-Cache = "MISS";
   }
   # Please note that obj.hits behaviour changed in 4.0, now it counts per objecthead, not per object
   # and obj.hits may not be reset in some cases where bans are in use. See bug 1492 for details.
@@ -179,24 +179,24 @@ sub vcl_deliver {
 
 
 sub vcl_purge {
-    # restart request
-    set req.http.X-Purge = "Yes";
-    return(restart);
+  # restart request
+  set req.http.X-Purge = "Yes";
+  return(restart);
 }
 
 sub vcl_synth {
   if (resp.status == 720) {
-    # We use this special error status 720 to force redirects with 301 (permanent) redirects
-    # To use this, call the following from anywhere in vcl_recv: error 720 "http://host/new.html"
-    set resp.status = 301;
-    set resp.http.Location = resp.reason;
-    return (deliver);
+  # We use this special error status 720 to force redirects with 301 (permanent) redirects
+  # To use this, call the following from anywhere in vcl_recv: error 720 "http://host/new.html"
+  set resp.status = 301;
+  set resp.http.Location = resp.reason;
+  return (deliver);
   } elseif (resp.status == 721) {
-    # And we use error status 721 to force redirects with a 302 (temporary) redirect
-    # To use this, call the following from anywhere in vcl_recv: error 720 "http://host/new.html"
-    set resp.status = 302;
-    set resp.http.Location = resp.reason;
-    return (deliver);
+  # And we use error status 721 to force redirects with a 302 (temporary) redirect
+  # To use this, call the following from anywhere in vcl_recv: error 720 "http://host/new.html"
+  set resp.status = 302;
+  set resp.http.Location = resp.reason;
+  return (deliver);
   }
   return (deliver);
 }

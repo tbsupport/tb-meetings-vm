@@ -1,24 +1,20 @@
 - name: Make project dir
-  command: mkdir -p {{app_dir}}/{{app_name}}
+  command: mkdir -p {{ app_dir }}/{{ app_name }}
 
 - name: Make sockets dir
-  command: mkdir -p {{app_path}}/shared/tmp/sockets
+  command: mkdir -p {{ app_path }}/shared/tmp/sockets
 
 - name: Make config dir
-  command: mkdir -p {{app_path}}/shared/config
+  command: mkdir -p {{ app_path }}/shared/config
 
 - name: Copy database.yml
-  template: src={{item}}.j2 dest={{app_dir}}/{{app_name}}/shared/config/{{item}}
+  template: src={{ item }}.j2 dest={{ app_dir }}/{{ app_name }}/shared/config/{{ item }}
   with_items:
     - database.yml
-    - aws.yml
-    - fyler.yml
-    - erly.yml
+    - secrets.yml
 
 - name: Setup ownership for project dir
-  command: chown -R {{deploy_user}} {{app_dir}}/{{app_name}}
+  command: chown -R {{ deploy_user }} {{ app_dir }}/{{ app_name }}
 
 - name: Setup rights for project dir
-  command: chmod -R g+w {{app_dir}}/{{app_name}}
-
-- include: curb_deps.yml tags=curb
+  command: chmod -R g+w {{ app_dir }}/{{ app_name }}

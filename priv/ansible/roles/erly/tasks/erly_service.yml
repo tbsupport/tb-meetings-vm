@@ -1,10 +1,6 @@
 - name: Erly | Create erly service
   action: template src=erly dest=/etc/init.d/erly mode=755
 
-- name: Erly | Remove old service links
-  command: 'update-rc.d -f erly remove'
-
-- name: Erly | Restart erly
+- name: Erly | Setup cron reboot task to start erly
   sudo_user: "{{ deploy_user }}"
-  service: name=erly state=started
-  ignore_errors: True
+  cron: name="start erly" special_time=reboot job="/bin/bash -l -c 'service erly start'"

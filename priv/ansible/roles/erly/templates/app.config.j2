@@ -10,8 +10,10 @@
       {lager_file_backend, [{file, "log/debug.log"}, {level, debug}, {size, 2097152}, {date, "$D0"}, {count, 10}]},
       {lager_file_backend, [{file, "log/error.log"}, {level, error}, {size, 10485760}, {date, "$D0"}, {count, 5}]},
       {lager_file_backend, [{file, "log/info.log"}, {level, info}, {size, 10485760}, {date, "$D0"}, {count, 5}]},
-      {lager_file_backend, [{file, "log/warning.log"}, {level, warning}, {size, 10485760}, {date, "$D0"}, {count, 5}]},
-      {lager_honeybadger_backend, [{api_key, "{{honeybadger_api_key}}"}]}
+      {lager_file_backend, [{file, "log/warning.log"}, {level, warning}, {size, 10485760}, {date, "$D0"}, {count, 5}]}
+      {% if defined?(honeybadger_api_key) %}
+      ,{lager_honeybadger_backend, [{api_key, "{{ honeybadger_api_key }}"}]}
+      {% endif %}
     ]},
     {extra_sinks,
       [
@@ -26,13 +28,15 @@
                 {count, 10},
                 {formatter, lager_default_formatter},
                 {formatter_config, [date, " ", time, " ", message,"\n"]}
-              ]},
-              {lager_logstash_backend, [
-                {level, debug},
-                {logstash_host, "{{logstash_host}}" },
-                {logstash_port, {{logstash_port}}},
-                {node_role, "{{logstash_node_role}}"" }
               ]}
+              {% if defined?(lager_logstash_host) %}
+              ,{lager_logstash_backend, [
+                {level, debug},
+                {logstash_host, "{{ lager_logstash_host }}" },
+                {logstash_port, {{ lager_logstash_port }}},
+                {node_role, "{{ lager_logstash_node_role }}" }
+              ]}
+              {% endif %}
           ]},
           {async_threshold, 500},
           {async_threshold_window, 50}]
@@ -45,18 +49,10 @@
     {crash_log_count, 5},
     {error_logger_redirect, true}
   ]},
-  {teachbase, [
-    {logo, "{{teachbase_logo}}"}
-  ]},
-  {dpo, [
-    {api_key, <<"{{dpo_api_key}}">>},
-    {file_dir, "{{dpo_recording_dir}}"},
-    {hls_duration, 10000}
-  ]},
   {erl_api_client, [
-    {http_host, <<"{{teachbase_http_host}}">>},
+    {http_host, <<"{{ teachbase_http_host }}">>},
     {http_ssl, false},
-    {http_auth_token, "{{teachbase_auth_token}}"},
+    {http_auth_token, "{{ teachbase_auth_token }}"},
     {http_info_path, <<"/meetings/info">>},
     {http_auth_path, <<"/auths/check">>},
     {http_token_path, <<"/auths/create">>},
@@ -64,4 +60,3 @@
     {http_stats_path, <<"/meetings/stats">>}
   ]}
 ].
-

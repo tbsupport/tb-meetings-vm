@@ -1,0 +1,19 @@
+erly_path: "{{ app_dir }}/erly"
+erly_release: "{{ app_dir }}/erly_release"
+erly_bin_path: "{{ erly_release }}/bin"
+erly_bin_name: "erlyvideo"
+erly_repo: https://github.com/webils/erly.git
+erly_version: "master"
+erly_rtmp_port: 1935
+erly_http_port: 8082
+erly_host: "{{ inventory_hostname }}"
+
+teachbase_auth_token: ""
+teachbase_api_key: ""
+teachbase_http_host: "localhost"
+teachbase_recording_dir: "/home/{{ deploy_user }}/teachbase_meetings/content/"
+teachbase_file_upload_path: "http://{{ erly_host }}/documents"
+teachbase_file_poll_path: "http://{{ erly_host }}/conversions/poll"
+teachbase_aws_bucket: devtbupload
+teachbase_aws_dir: recordings_dev
+teachbase_debug_mode: false

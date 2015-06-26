@@ -3,78 +3,36 @@ app_dir: /webapps
 app_name: meetings-web
 app_path: "{{ app_dir }}/{{ app_name }}"
 app_server_name: _
-app_db_host: localhost
-app_db_user_pass: teachbase
-app_db_user: teachbase
 
-honeybadger_api_key: ""
-
+# deploy user
 deploy_user: "vagrant"
 
+# aws_cli
 aws_config_user: "{{ deploy_user }}"
 
-# erly
-erly_path: "{{ app_dir }}/erly"
-erly_release: "{{ app_dir }}/erly_release"
-erly_bin_path: "{{ erly_release }}/bin"
-erly_bin_name: "erlyvideo"
-erly_repo: https://github.com/webils/erly.git
-erly_version: "master"
-erly_rtmp_port: 1935
-erly_http_port: 8082
-erly_host: "{{ inventory_hostname }}"
+# nginx
+nginx_max_size: 256m
+nginx_read_timeout: 600
+nginx_apps:
+  - { name: "{{ app_name }}", config: 'templates/nginx.conf.j2' }
+
+# postresql
+postgresql_host: localhost
+postgresql_user_pass: teachbase
+postgresql_user: teachbase
+postgresql_databases: teachbase_dev
 
 # teachbase
 teachbase_auth_token: "SGDki0MavMYQeXlvG88bCw=="
-teachbase_api_key: ""
-teachbase_http_host: "localhost"
-teachbase_recording_dir: "/home/{{ deploy_user }}/teachbase_meetings/content/"
-teachbase_file_upload_path: "http://{{ erly_host }}/documents"
-teachbase_file_poll_path: "http://{{ erly_host }}/conversions/poll"
-teachbase_logo: "/webapps/erly/tb.jpg"
-
-pg_db: teachbase_dev
-
-db_ram_shared: 512
-db_ram_cache: 256
-
-## stolen from https://github.com/jgrowl/ansible-playbook-ruby-from-src
-ruby_version: 2.2
-ruby_name: ruby-2.2.2
-ruby_url: "http://cache.ruby-lang.org/pub/ruby/{{ ruby_version }}/{{ ruby_name }}.tar.gz"
-ruby_tmp_path: "/usr/local/src/{{ ruby_name }}"
-
-# nodejs params
-
-node_version: "0.10.26"
-node_prefix: "node-v{{ node_version }}"
-node_tarball: "{{ node_prefix }}.tar.gz"
-node_path: "/usr/local"
-
-# redis
-
-redis_version: "3.0.2"
-
-# erlang
-erlang_version: "17.5"
-erlang_check_version: "17.5"
-erlang_url: "http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz" 
-erlang_name: "otp_src_{{ erlang_version }}"
-erlang_tmp_path: "/usr/local/src/{{ erlang_name }}"
 
 # deploy params
 deploy_user: vagrant
 deploy_user_key: "~/.ssh/devtb_rsa.pub"
 
-# nginx params
-nginx_max_size: 256m
-nginx_read_timeout: 600
-
 # erly
 erly:
   host: 'http://127.0.0.1:8082'
-  login: 'test'
-  pass: 'test'
+  api_key: "{{ teachbase_api_key }}"
 
 # aws
 aws_key: ''
@@ -88,7 +46,6 @@ fyler_login: 'test'
 fyler_pass: 'test'
 fyler_callback_host: 'http://{{ inventory_hostname }}'
 
-
 # varnish
 varnish_malloc_size: 128M
 
@@ -100,4 +57,4 @@ varnish_probe:
   threshold: 5
 
 varnish_backends:
-  - { name: 'erlyvideo', host: "{{ erly_host }}", port: '8082' }
+  - { name: 'erly', host: "{{ erly_host }}", port: '8082' }

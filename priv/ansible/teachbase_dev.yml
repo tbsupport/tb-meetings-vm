@@ -3,17 +3,13 @@
   hosts: development
   user: vagrant
   sudo: true
-  vars_files:
-    - group_vars/development.yml
-    - aws.yml
   roles:
-    - { role: common_setup, tags: ['initial'] }
-    - { role: ruby, tags: ['ruby'] }
-    - { role: postgres, tags: ['postgres'] }
-    - { role: redis, tags: ['redis'] }
-    - { role: nodejs, tags: ['nodejs'] }
+    - { role: 'palkan.common_setup', tags: ['common'] }
+    - { role: 'palkan.ruby', tags: ['ruby'] }
+    - { role: 'palkan.postgresql', tags: ['postgres'] }
+    - { role: 'palkan.redis', tags: ['redis'] }
+    - { role: 'palkan.nodejs', tags: ['nodejs'] }
     - { role: 'palkan.ffmpeg', tags: ['ffmpeg']}
-    - { role: erlang, tags: ['erlang'] }
-    - { role: erlyvideo, tags: ['erlyvideo'] }
-    - { role: aws_cli, tags: ['aws_cli'] }
-    - { role: varnish, tags: ['varnish'] }
+    - { role: 'palkan.erlang', tags: ['erlang'] }
+    - { role: 'palkan.aws_cli', tags: ['aws_cli'] }
+    - { role: 'palkan.varnish', tags: ['varnish'] }
