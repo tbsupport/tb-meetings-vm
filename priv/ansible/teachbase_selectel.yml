@@ -1,20 +1,21 @@
 ---
-- name: Selectel production
-  hosts: selectel-production
+- name: Selectel
+  hosts: selectel-staging
   sudo: yes 
   remote_user: root
-  vars_files:
-    - group_vars/selectel.yml
   gather_facts: True
   roles:
-    - { role: common_setup, tags: ['initial'] }
-    - { role: deploy_user, tags: ['user'] }
-    - { role: ruby, tags: ['ruby'] }
-    - { role: postgres, tags: ['postgres'] }
-    - { role: redis, tags: ['redis'] }
-    - { role: nodejs, tags: ['nodejs'] }
-    - { role: erlang, tags: ['erlang'] }
-    - { role: erly, tags: ['erly'] }
-    - { role: aws_cli, tags: ['aws_cli'] }
-    - { role: nginx, tags: ['nginx'] }
-    - { role: tb_prepare, tags: ['app_setup'] }
+    - { role: 'palkan.common_setup', tags: ['common'] }
+    - { role: 'palkan.deploy_user', tags: ['user'] }
+    - { role: 'palkan.ruby', tags: ['ruby'] }
+    - { role: 'palkan.postgresql', tags: ['postgres'] }
+    - { role: 'palkan.redis', tags: ['redis'] }
+    - { role: 'palkan.nodejs', tags: ['nodejs'] }
+    - { role: 'palkan.ffmpeg', tags: ['ffmpeg']}
+    - { role: 'palkan.erlang', tags: ['erlang'] }
+    - { role: 'palkan.aws_cli', tags: ['aws_cli'] }
+    - { role: 'palkan.varnish', tags: ['varnish'] }
+    - { role: 'palkan.nginx', tags: ['nginx'] }
+    - { role: 'tb_prepare', tags: ['tb_prepare'] }
+    - { role: 'erly', tags: ['erly'] }
+

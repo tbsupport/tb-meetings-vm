@@ -1,0 +1,5 @@
+- name: RoR | Copy configs
+  template: src={{ item }}.j2 dest={{ app_dir }}/{{ app_name }}/shared/config/{{ item }}
+  with_items:
+    - database.yml
+    - secrets.yml

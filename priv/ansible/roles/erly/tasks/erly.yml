@@ -1,7 +1,11 @@
 - name: Erly | clone 
   sudo_user: "{{ deploy_user }}"
-  git: repo={{ erly_repo }} version={{ erly_version }} accept_hostkey=true dest={{ erly_path }}
+  git: repo={{ erly_repo }}
+       version={{ erly_version }}
+       key_file={{ erly_key_file }}
+       dest={{ erly_path }}
   register: repo
+  tags: erly_clone
 
 - name: Erly | Create reltool.config
   sudo_user: "{{ deploy_user }}"
@@ -26,17 +30,20 @@
 - name: Erly | release exists?
   stat: path={{ erly_bin_path }}/{{ erly_bin_name }}
   register: release_bin
+  tags: erly_release
 
 - name: Erly | update deps
   sudo_user: "{{ deploy_user }}"
   command: make update_deps chdir={{ erly_path }}
-  when: repo.changed or reltool.changed or erly_config.changed or tb_config.changed or appconfig.changed (not release_bin.stat.exists)
+  when: repo.changed or reltool.changed or erly_config.changed or tb_config.changed or appconfig.changed or (not release_bin.stat.exists)
   register: updated
+  tags: erly_release
 
 - name: Erly | release
   sudo_user: "{{ deploy_user }}"
   environment: ffmpeg_env
   command: make release chdir={{ erly_path }}
   when: updated.changed or (not release_bin.stat.exists)
+  tags: erly_release
   notify:
     - Restart Erly

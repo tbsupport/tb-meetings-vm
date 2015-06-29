@@ -2,11 +2,12 @@ erly_path: "{{ app_dir }}/erly"
 erly_release: "{{ app_dir }}/erly_release"
 erly_bin_path: "{{ erly_release }}/bin"
 erly_bin_name: "erlyvideo"
-erly_repo: https://github.com/webils/erly.git
+erly_repo: git@github.com:webils/erly.git
 erly_version: "master"
 erly_rtmp_port: 1935
 erly_http_port: 8082
 erly_host: "{{ inventory_hostname }}"
+erly_key_file: /home/{{ deploy_user }}/.ssh/id_rsa
 
 teachbase_auth_token: ""
 teachbase_api_key: ""

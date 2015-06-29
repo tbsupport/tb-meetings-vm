@@ -11,6 +11,7 @@ deploy_user: "vagrant"
 aws_config_user: "{{ deploy_user }}"
 
 # nginx
+nginx_listen_port: 8083
 nginx_max_size: 256m
 nginx_read_timeout: 600
 nginx_apps:
@@ -34,6 +35,9 @@ erly:
   host: 'http://127.0.0.1:8082'
   api_key: "{{ teachbase_api_key }}"
 
+erly_public_key: /Users/palkan/.ssh/palkan_rsa.pub
+erly_private_key: /Users/palkan/.ssh/palkan_rsa
+
 # aws
 aws_key: ''
 aws_secret: '' 
@@ -47,6 +51,7 @@ fyler_pass: 'test'
 fyler_callback_host: 'http://{{ inventory_hostname }}'
 
 # varnish
+varnish_listen_port: 80
 varnish_malloc_size: 128M
 
 varnish_probe:

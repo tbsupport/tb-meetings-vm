@@ -1,0 +1,16 @@
+- name: RoR | Make webapps dir
+  command: mkdir -p {{ app_dir }}
+
+- name: RoR | Setup rights for webapps dir
+  command: chown -R {{ deploy_user }} {{ app_dir }}
+
+- name: RoR | Make sockets dir
+  sudo_user: "{{ deploy_user }}"
+  command: mkdir -p {{ app_path }}/shared/tmp/sockets
+
+- name: RoR | Make config dir
+  sudo_user: "{{ deploy_user }}"
+  command: mkdir -p {{ app_path }}/shared/config
+
+- name: RoR | Setup rights for project dir
+  command: chmod -R g+w {{ app_dir }}/{{ app_name }}

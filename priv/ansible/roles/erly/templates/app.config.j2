@@ -11,7 +11,7 @@
       {lager_file_backend, [{file, "log/error.log"}, {level, error}, {size, 10485760}, {date, "$D0"}, {count, 5}]},
       {lager_file_backend, [{file, "log/info.log"}, {level, info}, {size, 10485760}, {date, "$D0"}, {count, 5}]},
       {lager_file_backend, [{file, "log/warning.log"}, {level, warning}, {size, 10485760}, {date, "$D0"}, {count, 5}]}
-      {% if defined?(honeybadger_api_key) %}
+      {% if honeybadger_api_key is defined %}
       ,{lager_honeybadger_backend, [{api_key, "{{ honeybadger_api_key }}"}]}
       {% endif %}
     ]},
@@ -29,7 +29,7 @@
                 {formatter, lager_default_formatter},
                 {formatter_config, [date, " ", time, " ", message,"\n"]}
               ]}
-              {% if defined?(lager_logstash_host) %}
+              {% if lager_logstash_host is defined %}
               ,{lager_logstash_backend, [
                 {level, debug},
                 {logstash_host, "{{ lager_logstash_host }}" },

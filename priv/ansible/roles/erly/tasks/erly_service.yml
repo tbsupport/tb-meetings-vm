@@ -1,6 +1,6 @@
-- name: Erly | Create erly service
-  action: template src=erly dest=/etc/init.d/erly mode=755
+- name: Erly | Create erlyd service
+  template: src=erlyd.j2 dest=/etc/init.d/erlyd mode=755
 
-- name: Erly | Setup cron reboot task to start erly
+- name: Erly | Setup cron reboot task to start erlyd
   sudo_user: "{{ deploy_user }}"
-  cron: name="start erly" special_time=reboot job="/bin/bash -l -c 'service erly start'"
+  cron: name="start erlyd" special_time=reboot job="/bin/bash -l -c 'service erlyd start'"
