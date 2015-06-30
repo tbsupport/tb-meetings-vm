@@ -1,0 +1,3 @@
+postgresql_databases:
+  - teachbase_dev
+  - teachbase_test

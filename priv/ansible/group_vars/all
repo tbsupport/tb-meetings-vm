@@ -3,6 +3,7 @@ app_dir: /webapps
 app_name: meetings-web
 app_path: "{{ app_dir }}/{{ app_name }}"
 app_server_name: _
+app_secret: 123
 
 # deploy user
 deploy_user: "vagrant"
@@ -19,11 +20,13 @@ nginx_apps:
 
 # postresql
 postgresql_host: localhost
-postgresql_user_pass: teachbase
-postgresql_user: teachbase
-postgresql_databases: teachbase_dev
+postgresql_db_user_pass: teachbase
+postgresql_db_user: teachbase
+postgresql_databases: teachbase
 
 # teachbase
+teachbase_local_http_host: "localhost:8083"
+teachbase_http_host: "{{ erly_host }}:8083"
 teachbase_auth_token: "SGDki0MavMYQeXlvG88bCw=="
 
 # deploy params
@@ -42,7 +45,7 @@ erly_private_key: /Users/palkan/.ssh/palkan_rsa
 aws_key: ''
 aws_secret: '' 
 aws_region: eu-west-1
-aws_bucket: ''
+aws_bucket: 'tbconvert'
 
 # fyler
 fyler_host: 'http://localhost:8008'

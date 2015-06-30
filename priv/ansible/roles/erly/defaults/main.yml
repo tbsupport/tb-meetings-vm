@@ -11,10 +11,11 @@ erly_key_file: /home/{{ deploy_user }}/.ssh/id_rsa
 
 teachbase_auth_token: ""
 teachbase_api_key: ""
-teachbase_http_host: "localhost"
+teachbase_local_http_host: "localhost"
+teachbase_http_host: "{{ erly_host }}"
 teachbase_recording_dir: "/home/{{ deploy_user }}/teachbase_meetings/content/"
-teachbase_file_upload_path: "http://{{ erly_host }}/documents"
-teachbase_file_poll_path: "http://{{ erly_host }}/conversions/poll"
+teachbase_file_upload_path: "http://{{ teachbase_http_host }}/documents"
+teachbase_file_poll_path: "http://{{ teachbase_http_host }}/conversions/poll"
 teachbase_aws_bucket: devtbupload
 teachbase_aws_dir: recordings_dev
 teachbase_debug_mode: false
