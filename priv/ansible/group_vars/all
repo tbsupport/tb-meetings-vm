@@ -54,6 +54,8 @@ fyler_pass: 'test'
 fyler_callback_host: 'http://{{ inventory_hostname }}'
 
 # varnish
+varnish_vcl_tpl: 'templates/varnish.vcl.j2'
+
 varnish_listen_port: 80
 varnish_malloc_size: 128M
 

@@ -47,8 +47,12 @@
     {
         api_key, <<"{{ teachbase_api_key }}">>
     }.
-    {aws_dir,"{{ teachbase_aws_dir }}"}.
-    {aws_bucket, "{{ teachbase_aws_bucket }}"}.
+    {
+        aws_dir, "{{ teachbase_aws_dir }}"
+    }.
+    {
+        aws_bucket, "{{ teachbase_aws_bucket }}"
+    }.
     {
         user_waiting_time, 30000
     }.

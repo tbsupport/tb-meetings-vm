@@ -7,43 +7,37 @@
   register: repo
   tags: erly_clone
 
-- name: Erly | Create reltool.config
+- name: Erly | Copy configs
   sudo_user: "{{ deploy_user }}"
-  template: src=reltool.config.j2 dest={{ erly_path }}/reltool.config
-  register: reltool
-
-- name: Erly | Create erly config
-  sudo_user: "{{ deploy_user }}"
-  template: src=erlyvideo.conf.j2 dest={{ erly_path }}/priv/erlyvideo.conf
-  register: erly_config
-
-- name: Erly | Create teachbase config
-  sudo_user: "{{ deploy_user }}"
-  template: src=tb.conf.j2 dest={{ erly_path }}/apps/teachbase/priv/tb.conf
-  register: tb_config
-
-- name: Erly | Create app config
-  sudo_user: "{{ deploy_user }}"
-  template: src=app.config.j2 dest={{ erly_path }}/files/app.config
-  register: appconfig
+  template: src={{ item.src }} dest={{ item.dest }}
+  with_items: erly_configs
+  register: configs
 
 - name: Erly | release exists?
   stat: path={{ erly_bin_path }}/{{ erly_bin_name }}
   register: release_bin
   tags: erly_release
 
-- name: Erly | update deps
+- name: Erly | clean
   sudo_user: "{{ deploy_user }}"
-  command: make update_deps chdir={{ erly_path }}
-  when: repo.changed or reltool.changed or erly_config.changed or tb_config.changed or appconfig.changed or (not release_bin.stat.exists)
-  register: updated
-  tags: erly_release
+  command: make clean chdir={{ erly_path }}
+  when: erly_force_clean or repo.changed or configs.changed or (not release_bin.stat.exists)
+  register: cleaned
+
+- name: Erly | update deps and compile
+  sudo_user: "{{ deploy_user }}"
+  environment: ffmpeg_env
+  command: make {{ item }} chdir={{ erly_path }}
+  when: cleaned.changed
+  with_items:
+    - deps
+    - update_deps
+    - compile
+  register: compiled
 
 - name: Erly | release
   sudo_user: "{{ deploy_user }}"
-  environment: ffmpeg_env
-  command: make release chdir={{ erly_path }}
-  when: updated.changed or (not release_bin.stat.exists)
-  tags: erly_release
+  command: make soft-release chdir={{ erly_path }}
+  when: compiled.changed or (not release_bin.stat.exists)
   notify:
     - Restart Erly

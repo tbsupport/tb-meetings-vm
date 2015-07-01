@@ -1,5 +1,5 @@
-{rtmp_port, {{erly_rtmp_port}}}.
-{http_port, {{erly_http_port}}}.
+{rtmp_port, {{ erly_rtmp_port }}}.
+{http_port, {{ erly_http_port }}}.
 {rtmp_default_wait, false}.
 {vhosts, [
   {default, [
@@ -7,6 +7,6 @@
   	{detectors, [rewrite, http, file, livestream]},
     {hostname, ["localhost"]},
     {rtmp_handlers, [auth_users_limit, tb_rtmp_share_handler, tb_rtmp_handler, apps_streaming, apps_recording, notfound_rtmp_handler]},
-    {file_dir, "/"},
+    {file_dir, "/"}
   ]}
 ]}.
