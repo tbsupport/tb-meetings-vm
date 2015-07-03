@@ -51,7 +51,7 @@ aws_bucket: 'tbconvert'
 fyler_host: 'http://localhost:8008'
 fyler_login: 'test'
 fyler_pass: 'test'
-fyler_callback_host: 'http://{{ inventory_hostname }}'
+fyler_callback_host: 'http://{{ inventory_hostname }}:{{ nginx_listen_port }}'
 
 # varnish
 varnish_vcl_tpl: 'templates/varnish.vcl.j2'
