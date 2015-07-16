@@ -4,6 +4,7 @@
        version={{ erly_version }}
        key_file={{ erly_key_file }}
        dest={{ erly_path }}
+       force=true
   register: repo
   tags: erly_clone
 
@@ -12,6 +13,7 @@
   template: src={{ item.src }} dest={{ item.dest }}
   with_items: erly_configs
   register: configs
+  tags: erly_configs
 
 - name: Erly | release exists?
   stat: path={{ erly_bin_path }}/{{ erly_bin_name }}
@@ -38,6 +40,7 @@
 - name: Erly | release
   sudo_user: "{{ deploy_user }}"
   command: make soft-release chdir={{ erly_path }}
-  when: compiled.changed or (not release_bin.stat.exists)
+  when: compiled.changed or (not release_bin.stat.exists) or (erly_force_release)
+  tags: erly_release
   notify:
     - Restart Erly

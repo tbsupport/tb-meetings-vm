@@ -59,3 +59,11 @@
     {
         debug_mode, {{ teachbase_debug_mode }}
     }.
+    {% if deliverly_node is defined %}
+    {
+        deliverly_node, '{{ deliverly_node }}'
+    }.
+    {
+        deliverly_cookie, '{{ deliverly_cookie }}'
+    }.
+    {% endif %}
