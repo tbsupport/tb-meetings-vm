@@ -26,14 +26,20 @@
   when: erly_force_clean or repo.changed or configs.changed or (not release_bin.stat.exists)
   register: cleaned
 
+- name: Erly | remove deps
+  sudo_user: "{{ deploy_user }}"
+  file: path={{ erly_path }}/deps state=absent
+  when: erly_force_clean
+
 - name: Erly | update deps and compile
   sudo_user: "{{ deploy_user }}"
   environment: ffmpeg_env
   command: make {{ item }} chdir={{ erly_path }}
   when: cleaned.changed
   with_items:
-    - deps
-    - update_deps
+    - get-lager
+    - get-deps
+    - update-deps
     - compile
   register: compiled
 
