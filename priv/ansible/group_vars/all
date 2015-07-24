@@ -37,6 +37,7 @@ deploy_user_key: "~/.ssh/devtb_rsa.pub"
 erly:
   host: 'http://127.0.0.1:8082'
   api_key: "{{ teachbase_api_key }}"
+  varnish_host: 'http://{{ inventory_hostname }}'
 
 erly_public_key: /Users/palkan/.ssh/palkan_rsa.pub
 erly_private_key: /Users/palkan/.ssh/palkan_rsa
