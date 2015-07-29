@@ -11,6 +11,7 @@ erly_key_file: /home/{{ deploy_user }}/.ssh/id_rsa
 erly_node_name: erly
 erly_cookie: erly_dev
 erly_force_clean: false
+erly_force_release: false
 erly_configs:
   - { src: 'reltool.config.j2', dest: "{{ erly_path }}/reltool.config" }
   - { src: 'erlyvideo.conf.j2', dest: "{{ erly_path }}/priv/erlyvideo.conf" }

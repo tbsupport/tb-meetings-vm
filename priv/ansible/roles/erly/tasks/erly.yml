@@ -43,10 +43,15 @@
     - compile
   register: compiled
 
+- name: Erly | stop
+  service: name=erlyd state=stopped
+  when: erly_force_release
+  tags: erly_release
+
 - name: Erly | release
   sudo_user: "{{ deploy_user }}"
   command: make soft-release chdir={{ erly_path }}
-  when: compiled.changed or (not release_bin.stat.exists) or (erly_force_release)
+  when: erly_force_release or (compiled is defined and compiled.changed) or (release_bin is defined and (not release_bin.stat.exists))
   tags: erly_release
   notify:
     - Restart Erly
