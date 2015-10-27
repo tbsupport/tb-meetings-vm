@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8082, host: 8082
   
   # erly app rtmp
-  config.vm.network "forwarded_port", guest: 8935, host: 1935
+  config.vm.network "forwarded_port", guest: 1935, host: 1935
   
   # varnish
   config.vm.network "forwarded_port", guest: 80, host: 8081
