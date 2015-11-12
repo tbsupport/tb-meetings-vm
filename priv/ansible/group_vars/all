@@ -28,12 +28,16 @@ postgresql_databases: teachbase
 teachbase_local_http_host: "localhost:8083"
 teachbase_http_host: "{{ erly_host }}:8083"
 teachbase_auth_token: "SGDki0MavMYQeXlvG88bCw=="
+teachbase_api_key: "12345678"
+
+erly_host: "{{ inventory_hostname }}"
 
 # deploy params
 deploy_user: vagrant
 deploy_user_key: "~/.ssh/devtb_rsa.pub"
 
 # erly
+
 erly:
   host: 'http://127.0.0.1:8082'
   api_key: "{{ teachbase_api_key }}"
