@@ -5,6 +5,13 @@ app_path: "{{ app_dir }}/{{ app_name }}"
 app_server_name: _
 app_secret: 123
 
+ng_app_repo: git@github.com:webils/meetings-web.git
+ng_app_version: build
+ng_app_name: meetings-web-admin
+ng_app_port: 8008
+ng_app_server_name: _
+ng_app_path: "{{ app_dir }}/{{ ng_app_name }}"
+
 # deploy user
 deploy_user: "vagrant"
 
@@ -17,6 +24,7 @@ nginx_max_size: 256m
 nginx_read_timeout: 600
 nginx_apps:
   - { name: "{{ app_name }}", config: 'templates/nginx.conf.j2' }
+  - { name: "{{ ng_app_name }}", config: 'templates/ngapp.conf.j2' }
 
 # postresql
 postgresql_host: localhost

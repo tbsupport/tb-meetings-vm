@@ -1,0 +1,7 @@
+- name: Teachbase | Update Admin app
+  sudo_user: "{{ deploy_user }}"
+  git: repo={{ ng_app_repo }}
+       version={{ ng_app_version }}
+       accept_hostkey=yes
+       dest={{ ng_app_path }}
+       force=true

@@ -4,8 +4,6 @@
   sudo: yes 
   remote_user: root
   gather_facts: True
-  vars:
-    erly_version: dpo
   roles:
     - { role: 'palkan.common_setup', tags: ['common'] }
     - { role: 'palkan.deploy_user', tags: ['user'] }

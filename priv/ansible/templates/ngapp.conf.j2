@@ -1,0 +1,27 @@
+server {
+  listen {{ ng_app_port }};
+
+  server_name {{ ng_app_server_name }};
+  root {{ ng_app_path }};
+
+  location ~* \index.html$ {
+    expires off;
+  }
+
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico|xml)$ {
+    expires 1y;
+    log_not_found off;
+    access_log off;
+    add_header Cache-Control public;
+  }
+
+  location / {
+    expires off;
+    try_files $uri $uri/ /index.html =404;
+  }
+
+  # Protect repo (.git) folder
+  location ~ /\. {
+    deny all;
+  }
+}
