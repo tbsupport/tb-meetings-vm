@@ -1,6 +1,6 @@
 ---
-- name: Selectel
-  hosts: selectel-staging
+- name: Main Meetings Server
+  hosts: production
   sudo: yes 
   remote_user: root
   gather_facts: True
@@ -14,8 +14,22 @@
     - { role: 'palkan.ffmpeg', tags: ['ffmpeg']}
     - { role: 'palkan.erlang', tags: ['erlang'] }
     - { role: 'palkan.aws_cli', tags: ['aws_cli'] }
-    - { role: 'palkan.varnish', tags: ['varnish'] }
     - { role: 'palkan.nginx', tags: ['nginx'] }
     - { role: 'tb_prepare', tags: ['tb_prepare'] }
     - { role: 'erly', tags: ['erly'] }
+    - { role: 'alekseenkoss77.monit', tags: ['monit'] }
+
+- name: Varnish Server
+  hosts: varnish
+  sudo: yes 
+  remote_user: root
+  gather_facts: True
+  vars:
+    monit:
+      configs:
+        - { path: 'templates/monit/varnish.j2', name: varnish }
+  roles:
+    - { role: 'palkan.common_setup', tags: ['common'] }
+    - { role: 'palkan.deploy_user', tags: ['user'] }
+    - { role: 'palkan.varnish', tags: ['varnish'] }
     - { role: 'alekseenkoss77.monit', tags: ['monit'] }
