@@ -1,0 +1,7 @@
+check process varnish with pidfile /var/run/varnishd.pid
+start program = "/etc/init.d/varnish start"
+stop program = "/etc/init.d/varnish stop"
+if failed host 127.0.0.1 port {{ varnish_listen_port }} protocol http
+  and request {{ varnish_probe.url }}
+  then restart
+if 3 restarts within 5 cycles then timeout

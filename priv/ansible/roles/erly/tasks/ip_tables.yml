@@ -1,2 +1,21 @@
-- name: Erly | Redirect ports
-  shell: iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port {{ erly_rtmp_port }}
+- name: Erly | Get iptables rules
+  sudo: true
+  shell: iptables -L PREROUTING -t nat
+  register: iptablesrules
+  always_run: yes
+
+- name: Erly | add apache iptable rule
+  sudo: true
+  shell: iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port {{ erly_rtmp_port }} -m comment --comment "Erly"
+  when: iptablesrules.stdout.find("Erly") == -1
+  register: iptables_updated
+
+- name: save iptables
+  sudo: true
+  shell: iptables-save
+  when: iptables_updated.changed
+
+- name: restart iptables
+  sudo: true
+  service: name=ufw state=restarted
+  when: iptables_updated.changed

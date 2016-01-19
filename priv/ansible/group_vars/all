@@ -31,6 +31,8 @@ postgresql_host: localhost
 postgresql_db_user_pass: teachbase
 postgresql_db_user: teachbase
 postgresql_databases: teachbase
+postgresql_ram_shared: 128
+postgresql_ram_cache: 64
 
 # teachbase
 teachbase_local_http_host: "localhost:8083"

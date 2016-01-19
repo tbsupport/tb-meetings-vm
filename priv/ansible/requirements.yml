@@ -9,3 +9,4 @@
 - src: 'palkan.varnish'
 - src: 'palkan.deploy_user'
 - src: 'palkan.nginx'
+- src: 'alekseenkoss77.monit'
