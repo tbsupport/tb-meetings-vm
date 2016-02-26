@@ -28,8 +28,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "priv/ansible/teachbase_dev.yml"
-    ansible.inventory_path = "priv/ansible/dev_hosts"
+    ansible.playbook = "priv/ansible/dev.yml"
+    ansible.inventory_path = "priv/ansible/local_hosts"
     ansible.tags = ENV["TAGS"]
     ansible.skip_tags = ENV["SKIP_TAGS"]
     ansible.verbose = 'v'
