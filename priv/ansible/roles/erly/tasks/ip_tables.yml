@@ -4,7 +4,7 @@
   register: iptablesrules
   always_run: yes
 
-- name: Erly | add apache iptable rule
+- name: Erly | add erly iptable rule
   sudo: true
   shell: iptables -A PREROUTING -t nat -p tcp --dport 443 -j REDIRECT --to-port {{ erly_rtmp_port }} -m comment --comment "Erly"
   when: iptablesrules.stdout.find("Erly") == -1
